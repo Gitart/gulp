@@ -2,6 +2,8 @@
 1. Установить Gulp обязательно 4 версии 
 2. Установить все используеме библиотеки 
 3. Создать файл Gulpfile.js
+4. Создать дирректории для входа и выхода информации
+
 
 
 ### Сначала опредление задачи  
@@ -35,8 +37,14 @@ gulp.task('default', gulp.series('minify', 'watch', 'minijs', 'compress_images',
 
 ### Запуск в консоли
 Для просомтра watch или ('minify', 'watch', 'minijs', 'compress_images','mincss')
+
+Примеры :
+
 ```
 gulp watch  
+gulp inify
+gulp minijs 
+
 ```
 
 
