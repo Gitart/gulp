@@ -1,666 +1,1314 @@
-# Introduction to Gulp.js with practical examples
+# Gulp 4 \- Актуальное и исчерпывающее руководство для самых маленьких
 
-May 25, 2014
+Всем привет, друзья! Это обновлённое и переработанное руководство **Gulp 4**, в котором мы детально разберём работу с Gulp, ознакомимся с новыми методами построения задач (тасков), вы узнаете, какими способами можно установить, настроить Gulp и как с его помощью автоматизировать и ускорить процесс веб\-разработки. По традиции, мы будем знакомиться с возможностями инструмента на реальном примере и создадим удобное рабочее окружение для HTML вёрстки от А до Я.
 
-6 min read
+Поделиться
 
-[nodeJS](https://julienrenaux.fr/tags/nodejs/)[gulpJS](https://julienrenaux.fr/tags/gulpjs/)
+Твитнуть
 
-> Gulp.js is what we call a JavaScript Task Runner, it is Open Source and available on GitHub. It helps you automate repetitive tasks such as minification, compilation, unit testing, linting, etc. Gulp.js does not revolutionize automation but simplifies it tremendously.
+Поделиться
 
----
+Класснуть
 
-### Table of contents
+Запинить
 
-*   *   [What is Gulp.js?](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#what-is-gulp-js)
-    *   [How is it better than Grunt or Cakefile?](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#how-is-it-better-than-grunt-or-cakefile)
-    *   [Installation](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#installation)
-    *   [Practical examples](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#practical-examples)
-    *   [HTML Minification](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#html-minification-a-name-html-minification-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [CSS Minification](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#css-minification-a-name-css-minification-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [JS Minification](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#js-minification-a-name-js-minification-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [CoffeeScript Compilation](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#coffeescript-compilation-a-name-coffeescript-compilation-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [Less Compilation](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#less-compilation-a-name-less-compilation-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [Sass Compilation](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#sass-compilation-a-name-sass-compilation-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [ECMAScript 6 Compilation](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#ecmascript-6-compilation-a-name-es6-compilation-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [JavaScript Linting](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#javascript-linting-a-name-js-linting-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [CoffeeScript Linting](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#coffeescript-linting-a-name-coffeescript-linting-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [Rename a file](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#rename-a-file-a-name-rename-a-file-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [Concatenate files](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#concatenate-files-a-name-concatenate-files-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-    *   [Add copyright](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#add-copyright-a-name-add-copyright-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-        *   [Copyright](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#copyright)
-    *   [Add copyright with version](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#add-copyright-with-version-a-name-add-copyright-with-version-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-        *   [Copyright](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#copyright-1)
-        *   [Version](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#version)
-    *   [Mix them up (Lint, Concat, Compile, Minify etc.)](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#mix-them-up-lint-concat-compile-minify-etc-a-name-mix-them-up-lint-concat-compile-minify-etc-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
-        *   [Copyright](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#copyright-2)
-        *   [Version](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#version-1)
-    *   [Tasks automation](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/#tasks-automation-a-name-watch-coffeescript-a)[](https://julienrenaux.fr/2014/05/25/introduction-to-gulp-js-with-practical-examples/null)
+![Gulp 4 - Актуальное и исчерпывающее руководство для самых маленьких - Видеоурок](https://webdesign-master.ru/blog/tools/img/thumbs/@1x/tools/gulp-4-lesson/gulp-4-lesson-cover.jpg)
 
----
+[Смотреть урок на YouTube](https://youtu.be/n-N1BnloIVE)
 
-## What is Gulp.js?
+ [![Создание контентного сайта на Jekyll от А до Я](https://webdesign-master.ru/blog/tools/img/thumbs/@1x/1-images/image-j.jpg)](https://webdesign-master.ru/blog/tools/_lp/jekyll/)
 
-[Gulp.js](http://gulpjs.com/) is what we call a JavaScript Task Runner, it is Open Source and available on GitHub. It helps you automate repetitive tasks such as minification, compilation, unit testing, linting, etc. Gulp.js does not revolutionize automation but simplifies it tremendously.
+Для более углублённого понимания Gulp, в рамках подготовки данного урока, мною была полностью переведена [документация Gulp](https://webdesign-master.ru/blog/tools/blog/docs/gulp-documentation.html), к которой мы будем возвращаться по мере обучения. Рекомендую ознакомиться с документацией, там вы найдёте для себя много нового, полезного и интересного.
 
-Today the Web automation ecosystem is dominated by [Grunt.js](https://github.com/gruntjs/grunt) (which is a great tool BTW) but lately Gulp.js is getting more trending and soon will be overtaking Grunt.js (according to the GitHub popularity, aka “stars”: 7900 for Grunt.js and 6250 for Gulp.js).
+### Полезные материалы урока:
 
-## How is it better than Grunt or Cakefile?
+1.  [Документация Gulp](https://webdesign-master.ru/blog/tools/blog/docs/gulp-documentation.html)
+2.  [Проект\-пример данного урока на GitHub](https://github.com/agragregra/gulp-4-lesson)
+3.  [Обновление Gulp до версии 4](https://webdesign-master.ru/blog/tools/blog/tools/2018-12-13-gulp-4-update.html)
+4.  [Установка рабочего окружения в Windows WSL](https://webdesign-master.ru/blog/tools/blog/tools/wsl-nodejs-new.html)
+5.  [Node.js](https://nodejs.org/ru/)
+6.  [Browsersync Documentation](https://browsersync.io/docs)
+7.  [Стартер OptimizedHTML 5 на основе Gulp 4](https://webdesign-master.ru/blog/tools/blog/tools/2019-07-15-optimizedhtml-5.html)
 
-I would say it is no better nor worse than Grunt or Cakefile, it is different. While Cakefile or Grunt use files to execute tasks, Gulp.js uses streams. It means that a typical Cakefile or Grunt workflow would be to execute a task that dumps a temporary file, than based on this file to execute another task that dumps another temporary file an so on…
+В данном руководстве мы рассмотрим Gulp 4 именно в контексте автоматизации вёрстки \- минификации, конкатенации, оптимизации изображений, шаблонизации и сборки. Поняв основы, вы сможете применять инструмент и в других областях. Gulp является крутым модульным инструментом, завоевавшим признание огромного количества пользователей в разных областях программирования, как лучший таск\-раннер из всех ныне существующих. Gulp предоставляет лаконичный и простой синтаксис для построения любых задач.
 
-With Gulp.js everything happens on the fly using [Node’s stream](http://nodejs.org/api/stream.html), temporary files are not needed anymore which make it easy to learn, use and enjoy.
+С выходом Gulp 4 инструмент претерпел значительные изменения, по сравнению с Gulp 3, по которому я делал урок в своё время. Код стал максимально простым и лаконичным, значительно уменьшилось количество зависимостей пакетов, увеличилась скорость установки модулей и скорость работы в целом. Также у нас есть урок, в котором я рассказывал о том, как можно максимально быстро и без боли перевести любой проект, написанный с использование Gulp 3 на Gulp 4. Сегодня\-же мы научимся писать задачи с использованием только актуальных и рекомендуемых разработчиками Gulp методами и API. Данный урок будет актуальным до тех пор, пока в закреплённом комментарии к [видео на YouTube](https://youtu.be/n-N1BnloIVE) не появится информация о том, что вышел новый урок по данному инструменту. Данное правило применимо и для других уроков на канале. Чекните актуальность, а заодно, можете поставить лайк и что\-нибудь написать или спросить, буду рад ответить на ваш вопрос.
 
-## Installation
+> **Gulp** \- это таск\-раннер, инструмент, который позволяет автоматизировать любой ручной труд в любой области. Его используют не только в веб\-разработке, но и в других областях, где требуется автоматизация рабочего процесса посредством построения задач \- сборка, билд, копирование и другая работа с файлами и файловой системой.
 
-Use the `-g` options to install Gulp globally on your machine.
+### Установка Gulp и настройка
 
-```bash
-sudo npm install -g gulp
-```
+Для начал необходимо установить окружение. Если вы пользователь macOS или Windows, вы можете загрузить Node.js версии LTS с сайта Nodejs.org или воспользоваться [актуальным способом установки окружения](https://webdesign-master.ru/blog/tools/blog/tools/wsl-nodejs-new.html), который я предлагаю для работы с использованием WSL.
 
-## Practical examples
+После установки окружения можно приступать к работе. Откроем терминал в папке проекта: создадим папку «html» на вашем компьютере и откроем в ней терминал.
 
-Now let’s use Gulp a little bit. Throughout those examples we will discover how to use plugins to create specific tasks such as minifying, concatenate or even linting your code.
+> Если вы пользователь Windows, для того, чтобы открыть терминал bash или командную строку в нужной папке, просто зажмите клавишу Shift и нажать правую кнопку мыши.
 
-[Source available on Github](https://github.com/shprink/gulp-examples)
+> Внимание! Лучше не создавать русскоязычные папки. Избегайте кириллицы в путях вашего проекта, папка вашего пользователя должна быть написана также латиницей для корректной работы.
 
-## HTML Minification
+Выполним инициализацию проекта командой `npm init` и укажем название нашего проекта `myproject`:
 
-Using [gulp\-minify\-html](https://www.npmjs.org/package/gulp-minify-html)
+![Инициализация проекта npm init](https://webdesign-master.ru/blog/tools/img/blog/tools/gulp-4-lesson/npm-init.jpg)
 
-```bash
-npm install --save-dev gulp-minify-html
-```
+Если у вас нет желания заполнять остальные поля, можно оставить их пустыми, нажимая «Enter» или заполнить на своё усмотрение. По окончании заполнения полей, введите `yes` и нажмите «Enter».
 
-gulpfile.js:
+![Завершение инициализации проекта Gulp в npm init](https://webdesign-master.ru/blog/tools/img/blog/tools/gulp-4-lesson/npm-init-yes.jpg)
 
-```js
-// including plugins
-var gulp = require('gulp')
-, minifyHtml = require("gulp-minify-html");
+Проект создан. У нас появился файл «package.json». Это файл манифеста нашего нового проекта, который, помимо той информации, что мы указали в терминале, содержит также информацию о используемых в нашем проекте пакетах и их версиях. Если в дальнейшем нам необходимо будет заново установить все используемые в проекте пакеты, можно будет сделать это всего одной командой `npm i`. В проект будут автоматически установлены модули соответствующих версий.
 
-// task
-gulp.task('minify-html', function () {
-	gulp.src('./Html/*.html') // path to your files
-	.pipe(minifyHtml())
-	.pipe(gulp.dest('path/to/destination'));
-});
+![Файл package.json нашего проекта](https://webdesign-master.ru/blog/tools/img/blog/tools/gulp-4-lesson/gulp-package-json.jpg)
 
-```
+Для начала установим Gulp локально в наш проект командой:
 
-Run:
+|
 
-```bash
-gulp minify-html
-```
+ | npm i gulp \-\-save\-dev |
 
----
+> Если вы хотите, чтобы ваши зависимости были отажены в секции `devDependencies` манифеста, нужно обязательно указывать ключ `--save-dev`.
 
-## CSS Minification
+Теперь в файле package.json, в секции `devDependencies` появился `gulp` и информация о его текущей версии. После установки других пакетов таким\-же образом, информация о них также будет отражена в «package.json».
 
-Using [gulp\-minify\-css](https://www.npmjs.org/package/gulp-minify-css)
+|
 
-```bash
-npm install --save-dev gulp-minify-css
-```
+ | { |
+|
 
-gulpfile.js:
+ |   "name": "myproject", |
+|
 
-```js
-// including plugins
-var gulp = require('gulp')
-, minifyCss = require("gulp-minify-css");
+ |   "version": "1.0.0", |
+|
 
-// task
-gulp.task('minify-css', function () {
-	gulp.src('./Css/one.css') // path to your file
-	.pipe(minifyCss())
-	.pipe(gulp.dest('path/to/destination'));
-});
+ |   "description": "", |
+|
 
-```
+ |   "main": "index.js", |
+|
 
-Run:
+ |   "scripts": { |
+|
 
-```bash
-gulp minify-css
-```
+ |     "test": "echo \\"Error: no test specified\\" && exit 1" |
+|
 
----
+ |   }, |
+|
 
-## JS Minification
+ |   "author": "", |
+|
 
-Using [gulp\-uglify](https://www.npmjs.org/package/gulp-uglify)
+ |   "license": "ISC", |
+|
 
-```bash
-npm install --save-dev gulp-uglify
-```
+ |   "devDependencies": { |
+|
 
-gulpfile.js:
+ |     "gulp": "^4.0.2" |
+|
 
-```js
-// including plugins
-var gulp = require('gulp')
-, uglify = require("gulp-uglify");
+ |   } |
+|
 
-// task
-gulp.task('minify-js', function () {
-	gulp.src('./JavaScript/*.js') // path to your files
-	.pipe(uglify())
-	.pipe(gulp.dest('path/to/destination'));
-});
+ | } |
 
-```
+Кроме того, в папке нашего проекта появилась папка «node\_modules», которая теперь содержит все зависимости пакета «gulp».
 
-Run:
+![Папка node_modules](https://webdesign-master.ru/blog/tools/img/blog/tools/gulp-4-lesson/node_modules-folder.jpg)
 
-```bash
-gulp minify-js
-```
+Именно в эту папку будут автоматически установлены все модули и из зависимости, которые мы будем использовать в нашем проекте. Папок с зависимостями может быть очень много, не смотря на то, что пока что мы установили только один пакет. Все дополнительные модули необходимы для корректной работы основных пакетов.
 
----
+В папке проекта таже можно заметить файл «package\-lock.json». Это служебный файл, на который можно не обращать внимание. Его, конечно, можно удалить, однако после повторной установки модулей, он появится вновь.
 
-## CoffeeScript Compilation
+Для файлов нашего проекта я предлагаю создать папку «app/», в которой будут храниться все исходные файлы.
 
-Using [gulp\-coffee](https://www.npmjs.org/package/gulp-coffee)
+![Папка app проекта Gulp](https://webdesign-master.ru/blog/tools/img/blog/tools/gulp-4-lesson/gulp-project-app-folder.jpg)
 
-```bash
-npm install --save-dev gulp-coffee
-```
+Создадим папку «dist/», в которую будет выгружен готовый билд проекта. Если вы работаете с какой\-либо CMS или фреймворком, папка «dist/» вам, в принципе и не нужна. В своих проектах я не делаю сборку, потому, что всё, что нужно для посадки, как правило, уже собрано в папке «app/» и готово к дальнейшей работе. В стартере OptimizedHTML 5 мы не используем возможности билда проекта, в этом нет необходимости. В данном уроке сборка проекта, всё\-таки будет показана для наглядного примера, чтобы вы понимали как это происходит в других проектах. Итак, папка «app/» \- это исходники, «dist/» \- это готовый, собранный проект.
 
-gulpfile.js:
+![Папка dist проекта Gulp](https://webdesign-master.ru/blog/tools/img/blog/tools/gulp-4-lesson/gulp-project-dist-folder.jpg)
 
-```js
-// including plugins
-var gulp = require('gulp')
-, coffee = require("gulp-coffee");
+Давайте создадим самый главный файл проекта. Это, конечно\-же, «gulpfile.js».
 
-// task
-gulp.task('compile-coffee', function () {
-	gulp.src('./CoffeeScript/one.coffee') // path to your file
-	.pipe(coffee())
-	.pipe(gulp.dest('path/to/destination'));
-});
+### Работа с gulpfile.js
 
-```
+> Внимание! Все куски кода с примерами будут объединены в один полноценный пример «gulpfile.js» со всеми комментариями в конце данного урока.
 
-Run:
+Для начала определим константы Gulp в «gulpfile.js»:
 
-```bash
-gulp compile-coffee
-```
+|
 
----
+ | // Определяем константы Gulp |
+|
 
-## Less Compilation
+ | const { src, dest, parallel, series, watch } = require('gulp'); |
 
-Using [gulp\-less](https://www.npmjs.org/package/gulp-less)
+Именно с помощью `require()` мы подключаем модули из папки «node\_modules» и присваиваем их переменной или, как в нашем случае, константам.
 
-```bash
-npm install --save-dev gulp-less
-```
+Установим Live Server, который позволит нам использовать возможности локального сервера и автоматически обновлять страницы при изменениях в файлах. Лучшее решение \- Browsersync. Давайте его установим командой:
 
-gulpfile.js:
+|
 
-```js
-// including plugins
-var gulp = require('gulp')
-, less = require("gulp-less");
+ | npm i browser\-sync \-\-save\-dev |
 
-// task
-gulp.task('compile-less', function () {
-	gulp.src('./Less/one.less') // path to your file
-	.pipe(less())
-	.pipe(gulp.dest('path/to/destination'));
-});
+Подключим Browsersync в проект:
 
-```
+|
 
-Run:
+ | // Определяем константы Gulp |
+|
 
-```bash
-gulp compile-less
-```
+ | const { src, dest, parallel, series, watch } = require('gulp'); |
 
----
+|
 
-## Sass Compilation
+ | // Подключаем Browsersync |
+|
 
-Using [gulp\-sass](https://www.npmjs.org/package/gulp-sass)
+ | const browserSync = require('browser\-sync').create(); |
 
-```bash
-npm install --save-dev gulp-sass
-```
+Здесь необходимо указать `.create()` для создания нового подключения.
 
-gulpfile.js:
+Далее напишем функцию, которая определит логику работы «Browsersync». В отличие от Gulp 3, в Gulp 4 логика работы в комбайне не является таском. Это просто функция, которую можно экспортировать в таск или добавить в набор экспорта.
 
-```js
-// including plugins
-var gulp = require('gulp')
-, sass = require("gulp-sass");
+|
 
-// task
-gulp.task('compile-sass', function () {
-	gulp.src('./Sass/one.sass') // path to your file
-	.pipe(sass())
-	.pipe(gulp.dest('path/to/destination'));
-});
+ | // Определяем логику работы Browsersync |
+|
 
-```
+ | function browsersync() { |
+|
 
-Run:
+ |   browserSync.init({ // Инициализация Browsersync |
+|
 
-```bash
-gulp compile-sass
-```
+ |     server: { baseDir: 'app/' }, // Указываем папку сервера |
+|
 
----
+ |     notify: false, // Отключаем уведомления |
+|
 
-## ECMAScript 6 Compilation
+ |     online: true // Режим работы: true или false |
+|
 
-Using [gulp\-babel](https://www.npmjs.com/package/gulp-babel)
+ |   }) |
+|
 
-```bash
-npm install --save-dev gulp-babel
-```
+ | } |
 
-gulpfile.js:
+> Обратите внимание, что название функции не должно совпадать с названием переменной или константы, в которую мы подключаем пакет. Поэтмоу, в данном случае, название функции `browsersync()` будет содержать только строчные буквы.
 
-```js
-// including plugins
-var gulp = require('gulp')
-, babel = require("gulp-babel");
+> При использовании какого\-либо модуля, рекомендую всегда читать его документацию на официальном сайте или на сайта npmjs.org. Как правило, разницы большой нет, где смотреть инструкцию, однако лучше отдавать предпочтение оф. сайту, так как информация на сайте npmjs.org может обновляться не сразу или иметь не полные инструкции.
 
-// task
-gulp.task('compile-es6', function () {
-	gulp.src('./ES6/one.es6.js')
-        .pipe(babel())
-	.pipe(gulp.dest('path/to/destination'));
-});
+Если в терминале выполнить команду `gulp browsersync`, мы получим ошибку «Task never defined: browsersync», так как функция `browsersync()` \- это не таск, готовый к запуску.
 
-```
+Для того, чтобы получить готовый к запуску таск, функцию или комбинацию функций необходимо экспортировать.
 
-Run:
+Допишем далее в gulpfile.js:
 
-```bash
-gulp compile-es6
-```
+|
 
----
+ | // Экспортируем функцию browsersync() как таск browsersync. Значение после знака = это имеющаяся функция. |
+|
 
-## JavaScript Linting
+ | exports.browsersync = browsersync; |
 
-Using [gulp\-jshint](https://www.npmjs.org/package/gulp-jshint)
+Запускаем новый таск командой:
 
-```bash
-npm install --save-dev gulp-jshint
-```
+|
 
-gulpfile.js:
+ | gulp browsersync |
 
-```js
-// including plugins
-var gulp = require('gulp')
-, jshint = require("gulp-jshint");
+После запуска мы увидим в браузере белую страницу с надписью «Cannot GET /». Это говорит о том, что в папке проекта «app/» нет индексного файла.
 
-// task
-gulp.task('jsLint', function () {
-	gulp.src('./JavaScript/*.js') // path to your files
-	.pipe(jshint())
-	.pipe(jshint.reporter()); // Dump results
-});
+Если мы создадим в папке «app/» индексный файл «index.html», напишем в него что\-нибудь и сохраним файл, то, после обновления страницы, мы сможем узреть в браузере результат нашего творчества.
 
-```
+> Параметр `online` отвечает за режим работы. Укажите `online: false`, если хотите работать без подключения к интернету.
 
-In case of success:
+### Работа со скриптами
 
-```shell
-[gulp] Starting 'jsLint'...
-[gulp] Finished 'jsLint' after 6.47 ms
-```
+Создадим функцию `scripts()` до экспорта задач. Данная функция будет обрабатывать скрипты нашего проекта:
 
-In case of failure:
+|
 
-```shell
-[gulp] Starting 'jsLint'...
-[gulp] Finished 'jsLint' after 5.86 ms
-/var/www/gulp-examples/JavaScript/two.js: line 3, col 15, Expected '}' to match '{' from line 3 and instead saw '['.
-/var/www/gulp-examples/JavaScript/two.js: line 3, col 16, Missing semicolon.
-/var/www/gulp-examples/JavaScript/two.js: line 3, col 154, Expected an assignment or function call and instead saw an expression.
+ | function scripts() { |
+|
 
-3 errors
-```
+ |   return src(\[ // Берём файлы из источников |
+|
 
-Run:
+ |     'node\_modules/jquery/dist/jquery.min.js', // Пример подключения библиотеки |
+|
 
-```bash
-gulp jsLint
-```
+ |     'app/js/app.js', // Пользовательские скрипты, использующие библиотеку, должны быть подключены в конце |
+|
 
----
+ |     \]) |
+|
 
-## CoffeeScript Linting
+ |   .pipe(concat('app.min.js')) // Конкатенируем в один файл |
+|
 
-Using [gulp\-coffeelint](https://www.npmjs.org/package/gulp-coffeelint)
+ |   .pipe(uglify()) // Сжимаем JavaScript |
+|
 
-```bash
-npm install --save-dev gulp-coffeelint
-```
+ |   .pipe(dest('app/js/')) // Выгружаем готовый файл в папку назначения |
+|
 
-gulpfile.js:
+ |   .pipe(browserSync.stream()) // Триггерим Browsersync для обновления страницы |
+|
 
-```js
-// including plugins
-var gulp = require('gulp')
-, coffeelint = require("gulp-coffeelint");
+ | } |
 
-// task
-gulp.task('coffeeLint', function () {
-	gulp.src('./CoffeeScript/*.coffee') // path to your files
-	.pipe(coffeelint())
-	.pipe(coffeelint.reporter());
-});
+Для работы данной функции нам понадобятся модули «gulp\-concat» и «gulp\-uglify\-es». Установим их в наш проект. Устанавливать несколько пакетов можно простым перечислением без каких\-либо разделяющих символов одной командой:
 
-```
+|
 
-In case of success:
+ | npm i gulp\-concat gulp\-uglify\-es \-\-save\-dev |
 
-```shell
-[gulp] Starting 'coffeeLint'...
-[gulp] Finished 'coffeeLint' after 7.37 ms
-```
+И подключим данные модули к проекту в верхней части «gulpfile.js»:
 
-In case of failure:
+|
 
-```shell
-[gulp] Starting 'coffeeLint'...
-[gulp] Finished 'coffeeLint' after 6.25 ms
+ | // Определяем константы Gulp |
+|
 
-one.coffee
-?  line 3  Line contains a trailing semicolon
+ | const { src, dest, parallel, series, watch } = require('gulp'); |
 
-? 1 error
-```
+|
 
-Run:
+ | // Подключаем Browsersync |
+|
 
-```bash
-gulp coffeeLint
-```
+ | const browserSync = require('browser\-sync').create(); |
 
----
+|
 
-## Rename a file
+ | // Подключаем gulp\-concat |
+|
 
-Using [gulp\-rename](https://www.npmjs.org/package/gulp-rename)
+ | const concat = require('gulp\-concat'); |
 
-```bash
-npm install --save-dev gulp-rename
-```
+|
 
-gulpfile.js:
+ | // Подключаем gulp\-uglify\-es |
+|
 
-```js
-// including plugins
-var gulp = require('gulp')
-, rename = require('gulp-rename')
-, coffee = require("gulp-coffee");
+ | const uglify = require('gulp\-uglify\-es').default; |
 
-// task
-gulp.task('rename', function () {
-	gulp.src('./CoffeeScript/one.coffee') // path to your file
-	.pipe(coffee())  // compile coffeeScript
-	.pipe(rename('renamed.js')) // rename into "renamed.js" (original name "one.js")
-	.pipe(gulp.dest('path/to/destination'));
-});
+Создадим в папке «app/» новую папку «js/» и в ней уже создадим новый файл «app.js». Для примера можно разместить следующий код в файле «app.js»:
 
-```
+|
 
-Run:
+ | $(document).ready(function() { |
+|
 
-```bash
-gulp rename
-```
+ |   // $('body').hide() |
+|
 
----
+ | }) |
 
-## Concatenate files
+Давайте разберёмся, что происходит в функции `scripts()` нашего «gulpfile.js». Я буду указывать соответствующую строку кода из примера выше и объяснять, что мы делаем.
 
-Using [gulp\-concat](https://www.npmjs.org/package/gulp-concat)
+*   Строка 1: Создаём функцию `scripts()`
+*   Строка 2: Возвращаем через return и тут\-же открываем источник посредством `src` для [объекта Vinyl](https://webdesign-master.ru/blog/tools/blog/docs/gulp-documentation.html#vinyl).
+*   Строки 3 и 4: Перечисление нескольких файлов в качестве источника.
 
-```bash
-npm install --save-dev gulp-concat
-```
+    Внимание! В строке 3 мы подключаем jQuery из модулей. Его, соответственно, также нужно установить командой `npm i jquery --save-dev`
 
-gulpfile.js:
+    Имейте ввиду, что подключение пользовательских скриптов, в которых могут быть использованы какие\-либо JS библиотеки, нужно размещать после подключения библиотек в потоке, так как в процессе конкатенации файлы сливаются именно в той последовательности, в которой перечисляются пути до файлов в `src`, а подключение API библиотеки должно предшествовать использованию.
 
-```js
-// including plugins
-var gulp = require('gulp')
-, concat = require("gulp-concat");
+*   Строка 6: Конкатенация (слияние) содержимого перечисленных выше файлов в один виртуальный. Здесь мы должны указать название результирующего файла, в нашем случае это «app.min.js». Для удобства каждый новый вызов `.pipe()` рекомендую писать с новой строки.
 
-// task
-gulp.task('concat', function () {
-	gulp.src('./JavaScript/*.js') // path to your files
-	.pipe(concat('concat.js'))  // concat and name it "concat.js"
-	.pipe(gulp.dest('path/to/destination'));
-});
+    Так как `concat` не является частью Gulp, его можно установить дополнительно, как и другие дополнительные модули командой `npm i gulp-concat --save-dev` и подключить к проекту в верхней части «gulpfile.js» (мы это уже сделали выше).
 
-```
+*   Строка 7: Сжатие скриптов посредством модуля «gulp\-ugligy\-es», который мы установили и подключили ранее, вместе с «gulp\-concat». Обратите внимание, что данный модуль необходимо подключать с параметром `.default` в конце:
 
-Run:
+    |
 
-```bash
-gulp concat
-```
+     | const uglify = require('gulp\-uglify\-es').default; |
 
----
+*   Строка 8: Выгрузка результирующего файла в указанную директорию посредством `dest()`.
+*   Строка 9: Вызываем Browsersync для перезагрузки страницы. `.stream()` используется для инъекции в код, без hard reload, однако в данном случае произойдёт именно перезагрузка страницы, так как Browsersync знает, что это лучший вариант для работы со скриптами. Если мы работаем со стилями, например, жёсткая перезагрузка не обязательна и Browsersync просо подставит новый код в браузере, без перезагрузки страницы. Это мы рассмотрим далее в уроке.
 
-## Add copyright
+Далее экспортируем функцию `scripts()` в таск. В нижней части «gulpfile.js», где у нас размещён предыдущий экспорт, добавляем экспорт таска `scripts`:
 
-Using [gulp\-header](https://www.npmjs.org/package/gulp-header)
+|
 
-```bash
-npm install --save-dev gulp-header
-```
+ | // Экспортируем функцию browsersync() как таск browsersync. Значение после знака = это имеющаяся функция. |
+|
 
-### Copyright
+ | exports.browsersync = browsersync; |
 
-\[text\] /\* Gulp Examples by @julienrenaux:
+|
 
-*   [https://github.com/shprink](https://github.com/shprink)
-*   [https://twitter.com/julienrenaux](https://twitter.com/julienrenaux)
-*   [https://www.facebook.com/julienrenauxblog](https://www.facebook.com/julienrenauxblog)
+ | // Экспортируем функцию scripts() в таск scripts |
+|
 
-Full source at [https://github.com/shprink/gulp\-examples](https://github.com/shprink/gulp-examples)
+ | exports.scripts = scripts; |
 
-MIT License, [https://github.com/shprink/gulp\-examples/blob/master/LICENSE](https://github.com/shprink/gulp-examples/blob/master/LICENSE) \*/ \[/text\]
+Поначалу может показаться, что система экспорта функций в таски не совсем удобна, ведь раньше, в Gulp версии 3, мы сразу писали таски, которые уже были готовы к использованию без экспорта. Но здесь фишка в том, что именно с помощью `exports` можно комбинировать любым способом любые функции. Это намного круче, намного удобнее и работает всё намного быстрее. По мере изучения данного урока вы в этом убедитесь.
 
-gulpfile.js:
+Запустим `gulp scripts` и проверим в терминале, как работает наш таск:
 
-```js
-// including plugins
-var gulp = require('gulp')
-, fs = require('fs')
-, concat = require("gulp-concat")
-, header = require("gulp-header");
+![Таск scripts](https://webdesign-master.ru/blog/tools/img/blog/tools/gulp-4-lesson/gulp-scripts-task.jpg)
 
-// functions
+Таск работает отлично. Если перейти в папку «app/js/», можно узреть вновь созданный минифицированный файл «app.min.js» со скриптами проекта. Открыв этот файл, мы увидим, что там находится скрипт библиотеки jQuery, а в конце строки наш пример кода из «app/js/app.js».
 
-// Get copyright using NodeJs file system
-var getCopyright = function () {
-	return fs.readFileSync('Copyright');
-};
+Добавим разметку\-пример в файл «app/index.html» с подключенным скриптом, стилями и изображением:
 
-// task
-gulp.task('concat-copyright', function () {
-	gulp.src('./JavaScript/*.js') // path to your files
-	.pipe(concat('concat-copyright.js')) // concat and name it "concat-copyright.js"
-	.pipe(header(getCopyright()))
-	.pipe(gulp.dest('path/to/destination'));
-});
+|
 
-```
+ | <!DOCTYPE html\> |
+|
 
-Run:
+ | <html lang\="en"\> |
 
-```bash
-gulp concat-copyright
-```
+|
 
----
+ | <head\> |
 
-## Add copyright with version
+|
 
-Using [gulp\-header](https://www.npmjs.org/package/gulp-header) and [Node’s file system](http://nodejs.org/api/fs.html)
+ |   <meta charset\="UTF\-8"\> |
+|
 
-```bash
-npm install --save-dev gulp-header
-```
+ |   <title\>Document</title\> |
 
-### Copyright
+|
 
-\[text\] /\* Gulp Examples by @julienrenaux:
+ |   <!\-\- Подключаем стили проекта \-\-> |
+|
 
-*   [https://github.com/shprink](https://github.com/shprink)
-*   [https://twitter.com/julienrenaux](https://twitter.com/julienrenaux)
-*   [https://www.facebook.com/julienrenauxblog](https://www.facebook.com/julienrenauxblog)
+ |   <link rel\="stylesheet" href\="css/app.min.css"\> |
 
-Version: <%= version %> Full source at [https://github.com/shprink/gulp\-examples](https://github.com/shprink/gulp-examples)
+|
 
-MIT License, [https://github.com/shprink/gulp\-examples/blob/master/LICENSE](https://github.com/shprink/gulp-examples/blob/master/LICENSE) \*/ \[/text\]
+ | </head\> |
 
-### Version
+|
 
-\[text\] 1.0.0 \[/text\]
+ | <body\> |
 
-gulpfile.js:
+|
 
-```js
-// including plugins
-var gulp = require('gulp')
-, fs = require('fs')
-, concat = require("gulp-concat")
-, header = require("gulp-header");
+ |   <p\>Далеко\-далеко за словесными горами в стране, гласных и согласных...</p\> |
 
-// functions
+|
 
-// Get version using NodeJs file system
-var getVersion = function () {
-	return fs.readFileSync('Version');
-};
+ |   <!\-\- Подключаем оптимизированное изображение \-\-> |
+|
 
-// Get copyright using NodeJs file system
-var getCopyright = function () {
-	return fs.readFileSync('Copyright');
-};
+ |   <img src\="images/dest/image.jpg" alt\="Alt"\> |
 
-// task
-gulp.task('concat-copyright-version', function () {
-	gulp.src('./JavaScript/*.js')
-	.pipe(concat('concat-copyright-version.js')) // concat and name it "concat-copyright-version.js"
-	.pipe(header(getCopyrightVersion(), {version: getVersion()}))
-	.pipe(gulp.dest('path/to/destination'));
-});
+|
 
-```
+ |   <!\-\- Подключаем скрипты проекта \-\-> |
+|
 
-Run:
+ |   <script src\="js/app.min.js"\></script\> |
 
-```bash
-gulp concat-copyright-version
-```
+|
 
----
+ | </body\> |
+|
 
-## Mix them up (Lint, Concat, Compile, Minify etc.)
+ | </html\> |
 
-The purpose of this task is to mix the previous tasks into just one.
+Со стилями и изображениями поработаем чуть позже. Нужные ресурсы можно взять с GitHub, ссылка указана в начале статьи, в разделе полезных ресурсов урока.
 
-### Copyright
+> Рекомендую держать файл «index.html» на виду, так как в дальнейшем мы к нему ещё обратимся при работе со стилями и изображениями. Сейчас следует обратить внимание именно на строчку подключения скрипта:
+> `<script src="js/app.min.js"></script>`.
 
-\[text\] /\* Gulp Examples by @julienrenaux:
+> Обратите внимание, что в путях до файлов скриптов, стилей и изображений мы не указываем папку «app/», так как эта папка является корнем для сервера и уже учтена в настройках Browsersync.
 
-*   [https://github.com/shprink](https://github.com/shprink)
-*   [https://twitter.com/julienrenaux](https://twitter.com/julienrenaux)
-*   [https://www.facebook.com/julienrenauxblog](https://www.facebook.com/julienrenauxblog)
+Давайте сделаем так, чтобы при сохранении скриптов, происходило автоматическое обновление страницы в браузере. Для этого создадим новую функцию `startwatch()`, которая запустит наблюдение за изменениями файлов. Данную функию позже мы добавим в дефолтный экспорт для запуска вотчинга при старте.
 
-Version: <%= version %> Full source at [https://github.com/shprink/gulp\-examples](https://github.com/shprink/gulp-examples)
+|
 
-MIT License, [https://github.com/shprink/gulp\-examples/blob/master/LICENSE](https://github.com/shprink/gulp-examples/blob/master/LICENSE) \*/ \[/text\]
+ | function startwatch() { |
 
-### Version
+|
 
-\[text\] 1.0.0 \[/text\]
+ |   // Выбираем все файлы JS в проекте, а затем исключим с суффиксом .min.js |
+|
 
-gulpfile.js:
+ |   watch(\['app/\*\*/\*.js', '!app/\*\*/\*.min.js'\], scripts); |
 
-```js
-// including plugins
-var gulp = require('gulp')
-, fs = require('fs')
-, coffeelint = require("gulp-coffeelint")
-, coffee = require("gulp-coffee")
-, uglify = require("gulp-uglify")
-, concat = require("gulp-concat")
-, header = require("gulp-header");
+|
 
-// functions
+ | } |
 
-// Get version using NodeJs file system
-var getVersion = function () {
-	return fs.readFileSync('Version');
-};
+Использование константы `watch`, которую мы определили в начале документа, в качестве Gulp\-функции, позволит нам выбрать нужные файлы для наблюдения \- `'app/**/*.js'`, а затем отфильтровать те, которые заканчиваются на .min.js. В результате, для вотчинга у нас будут выбраны все файлы JS, кроме .min.js.
 
-// Get copyright using NodeJs file system
-var getCopyright = function () {
-	return fs.readFileSync('Copyright');
-};
+> Для более глубокого понимания работы Globs рекомендую ознакомиться с [соответствующим разделом документации Gulp](https://webdesign-master.ru/blog/tools/blog/docs/gulp-documentation.html#explaining-globs).
 
-// task
-gulp.task('bundle-one', function () {
-	gulp.src('./CoffeeScript/*.coffee') // path to your files
-	.pipe(coffeelint()) // lint files
-	.pipe(coffeelint.reporter('fail')) // make sure the task fails if not compliant
-	.pipe(concat('bundleOne.js')) // concat files
-	.pipe(coffee()) // compile coffee
-	.pipe(uglify()) // minify files
-	.pipe(header(getCopyrightVersion(), {version: getVersion()})) // Add the copyright
-	.pipe(gulp.dest('path/to/destination'));
-});
+Обратите внимание, друзья, что у нас может случиться рекурсивная перезагрузка страницы и рекурсивная (бесконечная) сборка файлов, если не установить негативный фильтр на файлы .min.js. Дело в том, что после сохранения файла «app.js» инициализируется сборка JS файлов, через определённое время создаётся собранный файл «app.min.js», который заново триггерит вотчер и всё начинается заново. Именно поэтому есть замечательная возможность исключить нежелательные файлы из выборки, указав восклицательный знак «!» в начале строки Glob. Строка с восклицательным знаком должна следовать после того, как мы указали все JS файлы, так как она является фильтром для предыдущей строки Glob.
 
-```
+Для того, чтобы наша функция `startwatch()` заработала и начала выполнять полезную работу, её необходимо добавить в дефолтный экспорт. Перейдём в секцию экспортов (в gulpfile.js внизу, где мы размещаем экспорты) и добавим дефолтный таск, в котором и запустим вотчер:
 
-Run:
+|
 
-```bash
-gulp bundle-one
-```
+ | // Экспортируем функцию browsersync() как таск browsersync. Значение после знака = это имеющаяся функция. |
+|
 
----
+ | exports.browsersync = browsersync; |
 
-## Tasks automation
+|
 
-Using gulp.watch you can easily automate any tasks when files are modified. It is really convenient because you do not have to run single tasks by hand every time a file is modified, and therefore your code is always up to date.
+ | // Экспортируем функцию scripts() в таск scripts |
+|
 
-```js
-// including plugins
-var gulp = require('gulp');
+ | exports.scripts = scripts; |
 
-// task
-gulp.task('watch-coffeescript', function () {
-    gulp.watch(['./CoffeeScript/*.coffee'], ['compile-coffee']);
-});
+|
 
-```
+ | // Экспортируем дефолтный таск с нужным набором функций |
+|
 
-Run:
+ | exports.default = parallel(scripts, browsersync, startwatch); |
 
-Now run the task:
+> Дефолтный таск `exports.default` позволяет запускать проект одной командой `gulp` в терминале.
 
-```bash
-gulp watch-coffeescript
-```
+> `parallel()` \- параллельное выполнение всех перечисленных в скобках функций. В нашем случае, параллельно будут собраны скрипты (`scripts`), запущен сервер (`browsersync`) и запущен вотчер (`startwatch`).
 
-and see what happens when you modify one of the source file.
+Теперь можно запустить команду `gulp` в терминале. Если внести какие\-либо изменения в файле «app/js/app.js», страница будет автоматически перезагружена.
+
+### Работа со стилями
+
+Аналогичным образом можно поработать и со стилями. В папке «app/» создадим две папки \- «sass» и «less». В папке «sass» создадим новый файл «main.sass», а в папке «less» создадим файл «main.less». Для примера их можно наполнить следующим содержимым:
+
+|
+
+ | // Содержимое файла main.sass |
+|
+
+ | body |
+|
+
+ |   // display: none |
+|
+
+ |   display: grid |
+
+|
+
+ | // Содержимое файла main.less |
+|
+
+ | body { |
+|
+
+ |   display: none; |
+|
+
+ | } |
+
+Ориентируясь на предыдущий опыт, установим одной командой модули «gulp\-sass», «gulp\-less», «gulp\-autoprefixer» и «gulp\-clean\-css»:
+
+|
+
+ | npm i \-\-save\-dev gulp\-sass gulp\-less gulp\-autoprefixer gulp\-clean\-css |
+
+И подключим их в проект:
+
+|
+
+ | // Определяем константы Gulp |
+|
+
+ | const { src, dest, parallel, series, watch } = require('gulp'); |
+
+|
+
+ | // Подключаем Browsersync |
+|
+
+ | const browserSync = require('browser\-sync').create(); |
+
+|
+
+ | // Подключаем gulp\-concat |
+|
+
+ | const concat = require('gulp\-concat'); |
+
+|
+
+ | // Подключаем gulp\-uglify\-es |
+|
+
+ | const uglify = require('gulp\-uglify\-es').default; |
+
+|
+
+ | // Подключаем модули gulp\-sass и gulp\-less |
+|
+
+ | const sass = require('gulp\-sass'); |
+|
+
+ | const less = require('gulp\-less'); |
+
+|
+
+ | // Подключаем Autoprefixer |
+|
+
+ | const autoprefixer = require('gulp\-autoprefixer'); |
+
+|
+
+ | // Подключаем модуль gulp\-clean\-css |
+|
+
+ | const cleancss = require('gulp\-clean\-css'); |
+
+Создадим переменную `preprocessor` в самом начале «gulpfile.js»:
+
+|
+
+ | // Определяем переменную "preprocessor" |
+|
+
+ | let preprocessor = 'sass'; // Выбор препроцессора в проекте \- sass или less |
+
+|
+
+ | // Определяем константы Gulp |
+|
+
+ | const { src, dest, parallel, series, watch } = require('gulp'); |
+
+|
+
+ | // ... |
+
+Теперь создадим функцию `styles()`, которая будет обрабатывать стили проекта, конкатенировать и сжимать. Обратите внимание, что мы используем наименование функции `styles()`, а не `sass()`, так как помимо Sass, у нас в проекте будет использоваться и Less. В качестве академического примера мы реализуем и такую возможность.
+
+Давайте ознакомимся с полной функцией и будем разбираться, что здесь происходит:
+
+|
+
+ | function styles() { |
+|
+
+ |   return src('app/' + preprocessor + '/main.' + preprocessor + '') // Выбираем источник: "app/sass/main.sass" или "app/less/main.less" |
+|
+
+ |   .pipe(eval(preprocessor)()) // Преобразуем значение переменной "preprocessor" в функцию |
+|
+
+ |   .pipe(concat('app.min.css')) // Конкатенируем в файл app.min.js |
+|
+
+ |   .pipe(autoprefixer({ overrideBrowserslist: \['last 10 versions'\], grid: true })) // Создадим префиксы с помощью Autoprefixer |
+|
+
+ |   .pipe(cleancss( { level: { 1: { specialComments: 0 } }/\* , format: 'beautify' \*/ } )) // Минифицируем стили |
+|
+
+ |   .pipe(dest('app/css/')) // Выгрузим результат в папку "app/css/" |
+|
+
+ |   .pipe(browserSync.stream()) // Сделаем инъекцию в браузер |
+|
+
+ | } |
+
+*   Строка 2: Выбираем источники. Обратите внимание, что здесь используется переменная, которую мы определили в начале файла «gulpfile.js» \- `preprocessor`. В зависимости от значения этой переменной, мы будем брать либой файл «app/sass/main.sass», либо файл «app/less/main.less». Очень удобно, если нужно расширить возможности выбора источника, в зависимости от значения переменной.
+*   Строка 3: С помощью функции `eval()` преобразуем значение переменной `preprocessor` в наименование функции. Если `preprocessor = 'sass'`, будет работать функция `sass()`, если `preprocessor = 'less'`, будет работать функция `less()`.
+*   Строка 4: Выгрузим содержимое в новый виртуальный файл с именем «app.min.css». Обратите внмиание, что «gulp\-concat» можно использовать не только для того, чтобы собирать несколько файлов в один, но и для того, чтобы просто задать имя результирующего файла, как это происходит в данном случае.
+*   Строка 5: Создание префиксов для лучшей совместимости со старыми браузерами. Здесь мы используем установленный и подключенный ранее модуль «gulp\-autoprefixer».
+
+    Параметр `overrideBrowserslist` задаётся для определения глубины версий от текущей. В нашем случае, префиксы будут раздаваться старым браузерам последних 10\-ти версий. Параметр `grid: true` отвечает за создание префиксов CSS Grid для браузеров Internet Explorer.
+
+*   Строка 6: Форматирование или максимальное сжатие результирующего CSS файла. Параметр `level: { 1: { specialComments: 0 } }` позволяет максимально сжать CSS код в одну строку. Также мы видим закомментированный параметр `format: 'beautify'`. Если мы его раскомментируем, на выходе мы получим не максимально сжатый CSS код, а наоборот, развёрнутый и читаемый.
+*   Строка 7: Выгружаем результирующий файл «app.min.css» в папку «app/css/».
+*   Строка 8: Триггерим Browsersync на инъекцию «app.min.css» в браузер. Обратите внимание, что перезагрузки страницы при сохранении исходных файлов препроцессора не происходит, новые CSS файлы просто подставляются вместо старых с помощью механизма Browsersync. Этого достаточно для того, чтобы новые стили были применены на странице.
+
+Экспортируем функцию `styles()` в задачу. Для этого добавим перед дефолтным экспортом `exports.styles`:
+
+|
+
+ | // Экспортируем функцию browsersync() как таск browsersync. Значение после знака = это имеющаяся функция. |
+|
+
+ | exports.browsersync = browsersync; |
+
+|
+
+ | // Экспортируем функцию scripts() в таск scripts |
+|
+
+ | exports.scripts = scripts; |
+
+|
+
+ | // Экспортируем функцию styles() в таск styles |
+|
+
+ | exports.styles = styles; |
+
+|
+
+ | // Экспортируем дефолтный таск с нужным набором функций |
+|
+
+ | exports.default = parallel(scripts, browsersync, startwatch); |
+
+После выполнения в терминале команды `gulp styles` будет создан файл стилей проекта «app/css/app.min.css». Если мы поменяем значение переменной `preprocessor` на `less` и перезапустим **gulp** в терминале, то в качестве источника выступит файл «app/less/main.less» и файл будет обработан уже препроцессором Less.
+
+Далее, как вы уже догадались, нам необходимо настроить слежение за изменениями в исходных файлах препроцессора. Для этого создадим ещё один `watch()` для стилей:
+
+|
+
+ | function startwatch() { |
+
+|
+
+ |   // Выбираем все файлы JS в проекте, а затем исключим с суффиксом .min.js |
+|
+
+ |   watch(\['app/\*\*/\*.js', '!app/\*\*/\*.min.js'\], scripts); |
+
+|
+
+ |   // Мониторим файлы препроцессора на изменения |
+|
+
+ |   watch('app/\*\*/' + preprocessor + '/\*\*/\*', styles); |
+
+|
+
+ | } |
+
+Здесь переменная `preprocessor` позволяет мониторить папку выбранного препроцессора \- sass или less, в зависимости от значения. После запятой указывается функция (без скобок), которую необходимо вызвать в том случае, если файлы были изменены. В данном случае, мы вызываем функцию `styles()`.
+
+Всё, что нам остаётся сделать, это добавить функцию `styles()` в дефолтный экспорт:
+
+|
+
+ | // ... |
+
+|
+
+ | // Экспортируем дефолтный таск с нужным набором функций |
+|
+
+ | exports.default = parallel(styles, scripts, browsersync, startwatch); |
+
+Теперь при запуске в терминале `gulp`, стили также будут мониториться и собираться автоматически. Так как в «index.html» мы изначально подключили стили и скрипты, все изменения будут применяться автоматически.
+
+Внимательный читатель заметит, что мы обработали стили, обработали JavaScript, но абсолютно оставили без внимания HTML файлы. Давайте добавим наблюдение за HTML файлами проекта в функцию `startwatch()`:
+
+|
+
+ | function startwatch() { |
+
+|
+
+ |   // Выбираем все файлы JS в проекте, а затем исключим с суффиксом .min.js |
+|
+
+ |   watch(\['app/\*\*/\*.js', '!app/\*\*/\*.min.js'\], scripts); |
+
+|
+
+ |   // Мониторим файлы препроцессора на изменения |
+|
+
+ |   watch('app/\*\*/' + preprocessor + '/\*\*/\*', styles); |
+
+|
+
+ |   // Мониторим файлы HTML на изменения |
+|
+
+ |   watch('app/\*\*/\*.html').on('change', browserSync.reload); |
+
+|
+
+ | } |
+
+Здесь мы отслеживаем событие посредством `.on('change', ...)` и выполняем hard reload страницы `browserSync.reload`.
+
+Теперь, после перезапуска `gulp`, при сохранении HTML файлов страница будет автоматически обновляться.
+
+### Работа с изображениями
+
+Следующая возможность, которую хотелось бы реализовать в нашем учебном проекте \- это работа с изображениями. Для этого создадим папку для изображений «images» в папке «app». В ней создадим две папки \- «src» (для исходников) и «dest» (для оптимизированных изображений). Скачайте любое изображение или несколько изображений из интернета в формате jpg или png и поместите их в папку источников «app/images/src/». Или вы можете взять изображение\-пример с GitHub, ссылка есть в начале статьи.
+
+Для того, чтобы работать с изображениями, нам необходим соответствующий модуль. Рекомендую использовать «gulp\-imagemin». Это один из самых популярных модулей для работы с изображениями. Давайте установим «gulp\-imagemin», а также вспомогательные модули «gulp\-newer» и «del»:
+
+|
+
+ | npm i \-\-save\-dev gulp\-imagemin gulp\-newer del |
+
+Подключим их к нашему проекту. В результате секция с подключением необходимых модулей будет выглядеть следующим образом:
+
+|
+
+ | // Определяем константы Gulp |
+|
+
+ | const { src, dest, parallel, series, watch } = require('gulp'); |
+
+|
+
+ | // Подключаем Browsersync |
+|
+
+ | const browserSync = require('browser\-sync').create(); |
+
+|
+
+ | // Подключаем gulp\-concat |
+|
+
+ | const concat = require('gulp\-concat'); |
+
+|
+
+ | // Подключаем gulp\-uglify\-es |
+|
+
+ | const uglify = require('gulp\-uglify\-es').default; |
+
+|
+
+ | // Подключаем модули gulp\-sass и gulp\-less |
+|
+
+ | const sass = require('gulp\-sass'); |
+|
+
+ | const less = require('gulp\-less'); |
+
+|
+
+ | // Подключаем Autoprefixer |
+|
+
+ | const autoprefixer = require('gulp\-autoprefixer'); |
+
+|
+
+ | // Подключаем модуль gulp\-clean\-css |
+|
+
+ | const cleancss = require('gulp\-clean\-css'); |
+
+|
+
+ | // Подключаем gulp\-imagemin для работы с изображениями |
+|
+
+ | const imagemin = require('gulp\-imagemin'); |
+
+|
+
+ | // Подключаем модуль gulp\-newer |
+|
+
+ | const newer = require('gulp\-newer'); |
+
+|
+
+ | // Подключаем модуль del |
+|
+
+ | const del = require('del'); |
+
+Назначение вспомогательных модулей «gulp\-newer» и «del» я объясню немного позже, а пока ознакомимся с новой функцией и разберёмся, что здесь происходит. Добавим новую функцию `images()` после функции `styles()`:
+
+|
+
+ | function images() { |
+|
+
+ |   return src('app/images/src/\*\*/\*') // Берём все изображения из папки источника |
+|
+
+ |   .pipe(newer('app/images/dest/')) // Проверяем, было ли изменено (сжато) изображение ранее |
+|
+
+ |   .pipe(imagemin()) // Сжимаем и оптимизируем изображеня |
+|
+
+ |   .pipe(dest('app/images/dest/')) // Выгружаем оптимизированные изображения в папку назначения |
+|
+
+ | } |
+
+*   Строка 2: Выбираем все файлы из источника.
+*   Строка 3: По факту, проверяет, был ли файл изменён ранее с использованием `gulp-newer`. Если в проекте сотни и даже тысячи изображений, повторное сжатие всех картинок может занять достаточно продолжительное время. Поэтому логичней было бы проверить, было ли сжато или изменено изображение ранее и оптимизировать его только в том случе, если таковые изменения имели место быть. Здесь нужно указать путь до папки назначения «app/images/dest/», так как исходники будут сравниваться с одноимёнными файлами, которые уже были изменены ранее.
+*   Строка 4: Сжатие изображений посредством `gulp-imagemin` с дефолтными настройками модуля (без параметров).
+*   Строка 5: Выгрузка в папку с готовыми изображениями.
+
+Для того, чтобы новый таск заработал, функцию необходимо экспортировать. Добавим после `exports.styles = styles;` следующую строку:
+
+|
+
+ | // Экспорт функции images() в таск images |
+|
+
+ | exports.images = images; |
+
+Кроме того при работе с изображениями иногда необходимо очистить всю папку «app/images/dest/» с готовыми картинками. Для этого отлично подойдёт модуль `del`. Напишем новую функцию после функции `images()` с наименованием `cleanimg()`:
+
+|
+
+ | function cleanimg() { |
+|
+
+ |   return del('app/images/dest/\*\*/\*', { force: true }) // Удаляем всё содержимое папки "app/images/dest/" |
+|
+
+ | } |
+
+Экспортируем для автономного использования в секции с экспортами в «gulpfile.js»:
+
+|
+
+ | // Экспортируем функцию cleanimg() как таск cleanimg |
+|
+
+ | exports.cleanimg = cleanimg; |
+
+Проверить работу таска довольно просто, введём команду в консоли:
+
+|
+
+ | gulp cleanimg |
+
+Далее можно добавить мониторинг изображений в вотчер. В результате функция `startwatch()` будет иметь следующий вид:
+
+|
+
+ | function startwatch() { |
+
+|
+
+ |   // Выбираем все файлы JS в проекте, а затем исключим с суффиксом .min.js |
+|
+
+ |   watch(\['app/\*\*/\*.js', '!app/\*\*/\*.min.js'\], scripts); |
+
+|
+
+ |   // Мониторим файлы препроцессора на изменения |
+|
+
+ |   watch('app/\*\*/' + preprocessor + '/\*\*/\*', styles); |
+
+|
+
+ |   // Мониторим файлы HTML на изменения |
+|
+
+ |   watch('app/\*\*/\*.html').on('change', browserSync.reload); |
+
+|
+
+ |   // Мониторим папку\-источник изображений и выполняем images(), если есть изменения |
+|
+
+ |   watch('app/images/src/\*\*/\*', images); |
+
+|
+
+ | } |
+
+Можно запустить проект командой `gulp` и проверить, как всё работает. Ознакомьтесь с файлом «index.html», чтобы разобраться, как мы подключили в этот файл стили, изображения и скрипты.
+
+### Сборка проекта (`build`)
+
+И последнее, что хотелось бы сегодня реализовать \- это сборка проекта или `build`. Создадим в корне проекта (рядом с папкой «app/») папку «dist/», в которую будем собирать наш проект. Обратите внимание, что у нас уже всё собрано изначально (стили, скрипты, сжаты изображения) и `build` я покажу только для академического примера, в реально работе данным подходом я пользуюсь редко. Всё, что нам нужно сделать \- это собрать заново стили, скрипты, сжать изображения во избежании билда старой информации и скопировать нужные файлы в папку «dist/».
+
+Добавим новую функцию `buildcopy()`:
+
+|
+
+ | function buildcopy() { |
+|
+
+ |   return src(\[ // Выбираем нужные файлы |
+|
+
+ |     'app/css/\*\*/\*.min.css', |
+|
+
+ |     'app/js/\*\*/\*.min.js', |
+|
+
+ |     'app/images/dest/\*\*/\*', |
+|
+
+ |     'app/\*\*/\*.html', |
+|
+
+ |     \], { base: 'app' }) // Параметр "base" сохраняет структуру проекта при копировании |
+|
+
+ |   .pipe(dest('dist')) // Выгружаем в папку с финальной сборкой |
+|
+
+ | } |
+
+> Обратите внимание, что мы выбираем здесь только минифицированные и готовые к продакшену файлы. Файлы нужно выбирать, исходя из задач и особенностей каждого отдельного проекта, это лишь простой и наглядный пример.
+
+Данную функцию экспортировать не обязательно, так как она будет являться частью таска `build` и автономно использоваться не будет. Создадим таск `build` и выполним нужные функции последовательно друг за другом с помощью `series()`:
+
+|
+
+ | // Создаём новый таск "build", который последовательно выполняет нужные операции |
+|
+
+ | exports.build = series(styles, scripts, images, buildcopy); |
+
+Здесь мы используем последовательное выполнение функций, так как нам нужен строгий порядок при сборке проекта и параллельно выполнять никакие задачи не требуется.
+
+Соберём наш проект, выполнив в терминале:
+
+|
+
+ | gulp build |
+
+Для очистки папки «dist/» можно создать дополнительную функцию `cleandist()` по аналогии с `cleanimg()` и добавить её в таск `build` для предварительной очистки целевой папки:
+
+|
+
+ | function cleandist() { |
+|
+
+ |   return del('dist/\*\*/\*', { force: true }) // Удаляем всё содержимое папки "dist/" |
+|
+
+ | } |
+
+|
+
+ | // Создаём новый таск "build", который последовательно выполняет нужные операции |
+|
+
+ | exports.build = series(cleandist, styles, scripts, images, buildcopy); |
+
+### Результат
+
+В результате у нас получился такой замечательный «gulpfile.js», который мы создали на реальном примере простого окружения для вёрстки:
+
+|
+
+ | // Определяем переменную "preprocessor" |
+|
+
+ | let preprocessor = 'sass';  |
+
+|
+
+ | // Определяем константы Gulp |
+|
+
+ | const { src, dest, parallel, series, watch } = require('gulp'); |
+
+|
+
+ | // Подключаем Browsersync |
+|
+
+ | const browserSync = require('browser\-sync').create(); |
+
+|
+
+ | // Подключаем gulp\-concat |
+|
+
+ | const concat = require('gulp\-concat'); |
+
+|
+
+ | // Подключаем gulp\-uglify\-es |
+|
+
+ | const uglify = require('gulp\-uglify\-es').default; |
+
+|
+
+ | // Подключаем модули gulp\-sass и gulp\-less |
+|
+
+ | const sass = require('gulp\-sass'); |
+|
+
+ | const less = require('gulp\-less'); |
+
+|
+
+ | // Подключаем Autoprefixer |
+|
+
+ | const autoprefixer = require('gulp\-autoprefixer'); |
+
+|
+
+ | // Подключаем модуль gulp\-clean\-css |
+|
+
+ | const cleancss = require('gulp\-clean\-css'); |
+
+|
+
+ | // Подключаем gulp\-imagemin для работы с изображениями |
+|
+
+ | const imagemin = require('gulp\-imagemin'); |
+
+|
+
+ | // Подключаем модуль gulp\-newer |
+|
+
+ | const newer = require('gulp\-newer'); |
+
+|
+
+ | // Подключаем модуль del |
+|
+
+ | const del = require('del'); |
+
+|
+
+ | // Определяем логику работы Browsersync |
+|
+
+ | function browsersync() { |
+|
+
+ |   browserSync.init({ // Инициализация Browsersync |
+|
+
+ |     server: { baseDir: 'app/' }, // Указываем папку сервера |
+|
+
+ |     notify: false, // Отключаем уведомления |
+|
+
+ |     online: true // Режим работы: true или false |
+|
+
+ |   }) |
+|
+
+ | } |
+
+|
+
+ | function scripts() { |
+|
+
+ |   return src(\[ // Берём файлы из источников |
+|
+
+ |     'node\_modules/jquery/dist/jquery.min.js', // Пример подключения библиотеки |
+|
+
+ |     'app/js/app.js', // Пользовательские скрипты, использующие библиотеку, должны быть подключены в конце |
+|
+
+ |     \]) |
+|
+
+ |   .pipe(concat('app.min.js')) // Конкатенируем в один файл |
+|
+
+ |   .pipe(uglify()) // Сжимаем JavaScript |
+|
+
+ |   .pipe(dest('app/js/')) // Выгружаем готовый файл в папку назначения |
+|
+
+ |   .pipe(browserSync.stream()) // Триггерим Browsersync для обновления страницы |
+|
+
+ | } |
+
+|
+
+ | function styles() { |
+|
+
+ |   return src('app/' + preprocessor + '/main.' + preprocessor + '') // Выбираем источник: "app/sass/main.sass" или "app/less/main.less" |
+|
+
+ |   .pipe(eval(preprocessor)()) // Преобразуем значение переменной "preprocessor" в функцию |
+|
+
+ |   .pipe(concat('app.min.css')) // Конкатенируем в файл app.min.js |
+|
+
+ |   .pipe(autoprefixer({ overrideBrowserslist: \['last 10 versions'\], grid: true })) // Создадим префиксы с помощью Autoprefixer |
+|
+
+ |   .pipe(cleancss( { level: { 1: { specialComments: 0 } }/\* , format: 'beautify' \*/ } )) // Минифицируем стили |
+|
+
+ |   .pipe(dest('app/css/')) // Выгрузим результат в папку "app/css/" |
+|
+
+ |   .pipe(browserSync.stream()) // Сделаем инъекцию в браузер |
+|
+
+ | } |
+
+|
+
+ | function images() { |
+|
+
+ |   return src('app/images/src/\*\*/\*') // Берём все изображения из папки источника |
+|
+
+ |   .pipe(newer('app/images/dest/')) // Проверяем, было ли изменено (сжато) изображение ранее |
+|
+
+ |   .pipe(imagemin()) // Сжимаем и оптимизируем изображеня |
+|
+
+ |   .pipe(dest('app/images/dest/')) // Выгружаем оптимизированные изображения в папку назначения |
+|
+
+ | } |
+
+|
+
+ | function cleanimg() { |
+|
+
+ |   return del('app/images/dest/\*\*/\*', { force: true }) // Удаляем всё содержимое папки "app/images/dest/" |
+|
+
+ | } |
+
+|
+
+ | function buildcopy() { |
+|
+
+ |   return src(\[ // Выбираем нужные файлы |
+|
+
+ |     'app/css/\*\*/\*.min.css', |
+|
+
+ |     'app/js/\*\*/\*.min.js', |
+|
+
+ |     'app/images/dest/\*\*/\*', |
+|
+
+ |     'app/\*\*/\*.html', |
+|
+
+ |     \], { base: 'app' }) // Параметр "base" сохраняет структуру проекта при копировании |
+|
+
+ |   .pipe(dest('dist')) // Выгружаем в папку с финальной сборкой |
+|
+
+ | } |
+
+|
+
+ | function cleandist() { |
+|
+
+ |   return del('dist/\*\*/\*', { force: true }) // Удаляем всё содержимое папки "dist/" |
+|
+
+ | } |
+
+|
+
+ | function startwatch() { |
+
+|
+
+ |   // Выбираем все файлы JS в проекте, а затем исключим с суффиксом .min.js |
+|
+
+ |   watch(\['app/\*\*/\*.js', '!app/\*\*/\*.min.js'\], scripts); |
+
+|
+
+ |   // Мониторим файлы препроцессора на изменения |
+|
+
+ |   watch('app/\*\*/' + preprocessor + '/\*\*/\*', styles); |
+
+|
+
+ |   // Мониторим файлы HTML на изменения |
+|
+
+ |   watch('app/\*\*/\*.html').on('change', browserSync.reload); |
+
+|
+
+ |   // Мониторим папку\-источник изображений и выполняем images(), если есть изменения |
+|
+
+ |   watch('app/images/src/\*\*/\*', images); |
+
+|
+
+ | } |
+
+|
+
+ | // Экспортируем функцию browsersync() как таск browsersync. Значение после знака = это имеющаяся функция. |
+|
+
+ | exports.browsersync = browsersync; |
+
+|
+
+ | // Экспортируем функцию scripts() в таск scripts |
+|
+
+ | exports.scripts = scripts; |
+
+|
+
+ | // Экспортируем функцию styles() в таск styles |
+|
+
+ | exports.styles = styles; |
+
+|
+
+ | // Экспорт функции images() в таск images |
+|
+
+ | exports.images = images; |
+
+|
+
+ | // Экспортируем функцию cleanimg() как таск cleanimg |
+|
+
+ | exports.cleanimg = cleanimg; |
+
+|
+
+ | // Создаём новый таск "build", который последовательно выполняет нужные операции |
+|
+
+ | exports.build = series(cleandist, styles, scripts, images, buildcopy); |
+
+|
+
+ | // Экспортируем дефолтный таск с нужным набором функций |
+|
+
+ | exports.default = parallel(styles, scripts, browsersync, startwatch); |
