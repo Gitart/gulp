@@ -1,8 +1,13 @@
+console.log("Start Gulp..");
+
 const {dest, gulp, src, watch, series} = require('gulp');
 const cleanCSS = require('gulp-clean-css');
 const babel    = require('gulp-babel');
 const minify   = require('gulp-minify');
 const concat   = require('gulp-concat');
+
+
+// .pipe(uglify())
 
 
 
@@ -13,7 +18,7 @@ function css() {
       console.log(`${details.name}: Было  : ${details.stats.originalSize}`);
       console.log(`${details.name}: Стало : ${details.stats.minifiedSize}`);
     }))
-    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(cleanCSS( { level: { 1: { specialComments: 0 } }/* , format: 'beautify' */ } ))
     .pipe(dest('dist'));
 }
 
@@ -34,6 +39,14 @@ function concatall() {
 }
 
 
+function concatgo() {
+  console.log("GO concat...")
+  return src(['go/*.go'])
+        .pipe(concat('main.go'))
+        .pipe(minify())
+        .pipe(dest('dist'));
+}
+
 // Base function
 exports.default = function() {
 
@@ -45,6 +58,9 @@ exports.default = function() {
 
   // слияние всех файлов в один в дирр dist
   watch('distprep/*.js', concatall);
+
+   watch('go/*.go', concatgo);
+
 
   // Or a composed task
   // watch('src/*.js', series(clean, javascript));
