@@ -4,3 +4,5 @@
 2. Have CSS file in diferent folders in one folder and compress output file CSS
 3. Needed clear format and concat all files js - main.js
  
+If error after install librarru
+run **npm link gulp**
