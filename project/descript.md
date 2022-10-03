@@ -2,27 +2,10 @@
 
 When dealing with web-based projects that run in the production environment, being able to build and deploy changes quickly is a top priority. However, repetitive processes such as building front-end assets, when not automated, can be prone to critical errors. In this article, Toptal Freelance Software Engineer Anton Kanevsky shows us how Gulp can solve various challenges of build automation through simple JavaScript routines.
 
-Author
 
-[![Anton Kanevsky](https://bs-uploads.toptal.io/blackfish-uploads/talent/profile/picture_file/picture/1053446/retina_64x64_large_8da74aac9a06a7c4e314823790f818b9-46afd6eba5a0baeae96192ff1d14865e.jpg)](https://www.toptal.com/resume/anton-kanevsky)
-
-Author
-
-[Anton Kanevsky](https://www.toptal.com/resume/anton-kanevsky)
-
-With a bachelor’s in CS and 15+ years of full-stack development, Anton is a pro software engineer who’s delivered numerous complex projects.
-
-**33**shares
-
-SHARE
-
-**33**shares
-
-SHARE
 
 Many of us have to handle web-based projects that are used in production, which provide various services to the public. When dealing with such projects, it is important to be able to build and deploy our code quickly. Doing something quickly often leads to errors, especially if a process is repetitive, therefore it’s a good practice to automate such a process as much as possible.
 
-![Gulp: A Web Developer's Secret Weapon for Maximizing Site Speed](https://uploads.toptal.io/blog/image/127814/toptal-blog-image-1545170781107-b8efc5f97b60d70d3d8dcee85c40fe19.png)
 
 My fellow developers: There is no excuse for serving junk to your browser.
 
