@@ -6,6 +6,6 @@
  
 If error after install librarry   
 ```
- **npm link gulp**
+ npm link gulp
  ```
  
