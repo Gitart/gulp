@@ -1,3 +1,13 @@
+# Plan
+1. Clear CSS 
+2. Collect all files CSS in one file
+3. Compress output CSS file
+4. Format all files JS
+5. Collect all JS file from all directories in one  output main JS file
+6. Format and compress output JS file
+
+
+
 ## Process
 
 1. Have JS files in folders src/*.js', 'mainjs/*.js', 'baselib/*.js
