@@ -9,9 +9,6 @@
 
 [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Support us][gittip-image]][gittip-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Gitter chat][gitter-image]][gitter-url]
 
-## Like what we do?
-
-[Support us via Gratipay](https://gratipay.com/WeAreFractal/)
 
 ## Documentation
 
