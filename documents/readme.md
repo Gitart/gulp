@@ -107,6 +107,7 @@ gulp minijs
  
 ## Useful plugin
 
+```
 gulp-minify-html  // минификация HTML-файлов
 gulp-minify-css   // минификация CSS-файлов
 gulp-csso         // еще один плагин минификации CSS-файлов
@@ -121,3 +122,4 @@ gulp-notify       // вывод окна с уведомлением о собы
 gulp-imagemin     // сжатие изображений в Gulp
 gulp-rename       // переименование файлов в Gulp
 gulp-plumber      // настройка обработки ошибок в Gulp
+```
