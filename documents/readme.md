@@ -4,6 +4,7 @@
 2. Install used packages
 3. Create gulpfule.js
 4. Start gulp
+5. Useful plugin
 
 
 ## 1. Install gulp in your project devDependencies:
@@ -104,4 +105,19 @@ gulp minijs
 ```
 
  
+## Useful plugin
 
+gulp-minify-html  // минификация HTML-файлов
+gulp-minify-css   // минификация CSS-файлов
+gulp-csso         // еще один плагин минификации CSS-файлов
+gulp-uglify       // минификация JS-файлов
+gulp-sass         // компиляция SCSS-файлов в CSS-файлы
+gulp-ruby-sass    // компиляции SCSS-файлов в CSS-файлы, более стабильный
+gulp-concat       // конкатенация (соединение нескольких файлов в один файл)
+gulp-jshint       // ???
+gulp-livereload   // запуск плагина LiveReload
+gulp-watch        // мониторинг файлов в фоновом режиме в Gulp
+gulp-notify       // вывод окна с уведомлением о событиях в Gulp
+gulp-imagemin     // сжатие изображений в Gulp
+gulp-rename       // переименование файлов в Gulp
+gulp-plumber      // настройка обработки ошибок в Gulp
