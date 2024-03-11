@@ -33,13 +33,10 @@ const cleanCSS = require('gulp-clean-css');
 const babel    = require('gulp-babel');
 const minify   = require('gulp-minify');
 const concat   = require('gulp-concat');
+const minhtml  = require('gulp-minify-html');
 
-
-// .pipe(uglify())
-
-// Compress CSS file 
 function css() {
-  console.log("CSS process...");
+  console.log("CSS Compress CSS file ...");
   return src('src/*.css')
    .pipe(cleanCSS({debug: true}, (details) => {
       console.log(`${details.name}: Было  : ${details.stats.originalSize}`);
@@ -49,7 +46,6 @@ function css() {
     .pipe(dest('dist'));
 }
 
-// Приведение к стандарту
 function js() {
   console.log("JS process...");
   return src(['src/*.js', 'mainjs/*.js', 'baselib/*.js'])
@@ -57,7 +53,6 @@ function js() {
     .pipe(dest('distprep'));
 }
 
-// Concationation  all files JS файлы
 function concatall() {
   console.log("JS dist process...");
   return src(['distprep/*.js', 'distprep/*.js', 'distprep/*.js'])
@@ -66,6 +61,13 @@ function concatall() {
         .pipe(dest('dist'));
 }
 
+
+function minhtmls() {
+  console.log("HTML dist process...");
+  return src(['htmls/*.html'])
+        .pipe(minhtml())
+        .pipe(dest('disthtml'));
+}
 
 function concatgo() {
   console.log("GO concat...")
@@ -82,6 +84,7 @@ exports.default = function() {
   // css()
 
   // You can use a single task
+  watch('htmls/*.html', minhtmls);
   watch('src/*.css', css);
   watch(['src/*.js', 'mainjs/*.js', 'baselib/*.js'], js);
 
@@ -90,6 +93,8 @@ exports.default = function() {
   watch('go/*.go', concatgo);
   
 };
+
+
 ```
 
 ## 3 Start gulp
