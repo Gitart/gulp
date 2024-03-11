@@ -1,6 +1,6 @@
 ## Work with Gulp
 
-1. Install Gulp
+1. [Install Gulp](https://gulpjs.com/docs/en/getting-started/quick-start)
 2. Install used packages
 3. Create gulpfule.js
 4. Start gulp
