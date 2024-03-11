@@ -6,6 +6,12 @@
 4. Start gulp
 
 
+## 1. Install gulp in your project devDependencies:
+```sh
+npm install --global gulp
+npm install --save-dev gulp
+```
+
 
 ## 2. Install package
 ```
@@ -89,4 +95,13 @@ exports.default = function() {
 ```bat
 gulp
 ```
+
+## 4  Watch
+```bat
+gulp watch
+gulp infy
+gulp minijs
+```
+
+ 
 
